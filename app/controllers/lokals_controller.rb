@@ -2,15 +2,15 @@
 
 class LokalsController < ApplicationController
   before_action :set_lokal, only: %i[show edit update destroy book]
-  before_action :not_admin, except: [:index, :show, :book]
+  before_action :not_admin, except: %i[index show book]
 
   # GET /lokals or /lokals.json
   def index
-    if params[:key].nil?
-      @lokals = Lokal.all.where(user_id: nil)
-    else
-      @lokals = Lokal.all.where(user_id: nil).sort_by(&:cena)
-    end
+    @lokals = if params[:key].nil?
+                Lokal.all.where(user_id: nil)
+              else
+                Lokal.all.where(user_id: nil).sort_by(&:cena)
+              end
   end
 
   # GET /lokals/1 or /lokals/1.json

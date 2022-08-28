@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    current_user.admin? ? @user = current_user : @user = User.find(params[:id])
+    @user = current_user.admin? ? current_user : User.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
