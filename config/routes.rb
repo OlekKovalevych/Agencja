@@ -3,8 +3,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users
-  resources :lokals
+  resources :users, except: [:new, :create]
+  resources :lokals do
+    put :book, on: :member
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

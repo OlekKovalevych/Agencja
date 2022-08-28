@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def not_admin
+    redirect_to lokals_url unless current_user.admin?
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name is_admin])
   end

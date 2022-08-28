@@ -1,11 +1,53 @@
-<p style="color: green"><%= notice %></p>
+<p id="notice"><%= notice %></p>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <strong>Name:</strong>
+        <%= @user.full_name %>
+      </p>
+    </div>
+  </div>
+  <% unless @lokals.nil? %>
+    <div class="col-12">
+      <p>
+        <strong>My booking lokals:</strong>
+      </p>
+    </div>
+    <% @lokals.each do |lokal| %>
+      <div class="album py-2 bg-light">
+        <div class="container">
+          <div class="col-md-5">
+            <div class="card mb-2 box-shadow">
+              <table>
+                <thead>
+                <tr>
+                  <th>Ulica</th>
+                  <th>Cena</th>
+                  <th colspan="6"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><%= lokal.ulica %></td>
+                  <td><%= lokal.cena %></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<%= render @user %>
+    <% end %>
+  <% end %>
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Edit', edit_user_path(@user) %>
+  </div>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Back', lokals_path %>
+  </div>
 </div>
+</body>

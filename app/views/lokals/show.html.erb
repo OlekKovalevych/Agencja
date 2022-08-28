@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-12">
       <p>
-        <strong>Name:</strong>
+        <strong>Ulica :</strong>
         <%= @lokal.ulica %>
       </p>
     </div>
@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-12">
       <p>
-        <strong>Surname:</strong>
+        <strong>Cena zł:</strong>
         <%= @lokal.cena %>
       </p>
     </div>
@@ -25,9 +25,11 @@
       </p>
     </div>
   </div>
-  <div class="btn  btn-outline-info">
-    <%= link_to 'Edit', edit_lokal_path(@lokal) %>
-  </div>
+  <% if current_user.admin? %>
+    <div class="btn  btn-outline-info">
+      <%= link_to 'Edit', edit_lokal_path(@lokal) %>
+    </div>
+  <% end %>
   <div class="btn  btn-outline-info">
     <%= link_to 'Show All lokals', lokals_path %>
   </div>

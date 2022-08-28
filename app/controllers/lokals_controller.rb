@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 class LokalsController < ApplicationController
-  before_action :set_lokal, only: %i[ show edit update destroy ]
+  before_action :set_lokal, only: %i[show edit update destroy book]
+  before_action :not_admin, except: [:index, :show, :book]
 
   # GET /lokals or /lokals.json
   def index
-    @lokals = Lokal.all
+    if params[:key].nil?
+      @lokals = Lokal.all.where(user_id: nil)
+    else
+      @lokals = Lokal.all.where(user_id: nil).sort_by(&:cena)
+    end
   end
 
   # GET /lokals/1 or /lokals/1.json
-  def show
-  end
+  def show; end
 
   # GET /lokals/new
   def new
@@ -16,8 +22,7 @@ class LokalsController < ApplicationController
   end
 
   # GET /lokals/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /lokals or /lokals.json
   def create
@@ -25,7 +30,7 @@ class LokalsController < ApplicationController
 
     respond_to do |format|
       if @lokal.save
-        format.html { redirect_to lokal_url(@lokal), notice: "Lokal was successfully created." }
+        format.html { redirect_to lokal_url(@lokal), notice: 'Lokal was successfully created.' }
         format.json { render :show, status: :created, location: @lokal }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +43,19 @@ class LokalsController < ApplicationController
   def update
     respond_to do |format|
       if @lokal.update(lokal_params)
-        format.html { redirect_to lokal_url(@lokal), notice: "Lokal was successfully updated." }
+        format.html { redirect_to lokal_url(@lokal), notice: 'Lokal was successfully updated.' }
+        format.json { render :show, status: :ok, location: @lokal }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @lokal.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def book
+    respond_to do |format|
+      if @lokal.update(user_id: current_user.id)
+        format.html { redirect_to lokals_url, notice: 'Lokal was successfully booked.' }
         format.json { render :show, status: :ok, location: @lokal }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +69,7 @@ class LokalsController < ApplicationController
     @lokal.destroy
 
     respond_to do |format|
-      format.html { redirect_to lokals_url, notice: "Lokal was successfully destroyed." }
+      format.html { redirect_to lokals_url, notice: 'Lokal was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
