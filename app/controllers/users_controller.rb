@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
+  before_action :not_admin, only: %i[destroy]
 
   # GET /users or /users.json
   def index
@@ -9,7 +10,9 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @lokals = current_user.lokals
+  end
 
   # GET /users/new
   def new
@@ -61,7 +64,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    current_user.admin? ? @user = current_user : @user = User.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

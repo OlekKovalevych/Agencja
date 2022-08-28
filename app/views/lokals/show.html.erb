@@ -1,10 +1,40 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @lokal %>
-
-<div>
-  <%= link_to "Edit this lokal", edit_lokal_path(@lokal) %> |
-  <%= link_to "Back to lokals", lokals_path %>
-
-  <%= button_to "Destroy this lokal", @lokal, method: :delete %>
+<p id="notice"><%= notice %></p>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <strong>Ulica :</strong>
+        <%= @lokal.ulica %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <strong>Cena zł:</strong>
+        <%= @lokal.cena %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <strong>Offer End time:</strong>
+        <%= @lokal.end_time %>
+      </p>
+    </div>
+  </div>
+  <% if current_user.admin? %>
+    <div class="btn  btn-outline-info">
+      <%= link_to 'Edit', edit_lokal_path(@lokal) %>
+    </div>
+  <% end %>
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Show All lokals', lokals_path %>
+  </div>
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Back', lokals_path %>
+  </div>
 </div>
+</body>
