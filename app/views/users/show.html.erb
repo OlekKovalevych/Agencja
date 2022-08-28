@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <strong>Name:</strong>
+        <%= @user.full_name %>
+      </p>
+    </div>
+  </div>
+  <% unless @lokals.nil? %>
+    <div class="col-12">
+      <p>
+        <strong>My booking lokals:</strong>
+      </p>
+    </div>
+    <% @lokals.each do |lokal| %>
+      <div class="album py-2 bg-light">
+        <div class="container">
+          <div class="col-md-5">
+            <div class="card mb-2 box-shadow">
+              <table>
+                <thead>
+                <tr>
+                  <th>Ulica</th>
+                  <th>Cena</th>
+                  <th colspan="6"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><%= lokal.ulica %></td>
+                  <td><%= lokal.cena %></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  <% end %>
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Edit', edit_user_path(@user) %>
+  </div>
+
+  <div class="btn  btn-outline-info">
+    <%= link_to 'Back', lokals_path %>
+  </div>
+</div>
+</body>

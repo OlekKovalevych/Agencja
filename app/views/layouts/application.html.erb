@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Agencja</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Agencja</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<% unless current_user.nil? %>
+  <%= link_to "About me", user_path(current_user) %>
+  <%= link_to "Users", users_path if current_user.admin? %>
+  <%= link_to "Lokals", lokals_path %>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+<% end %>
+<p class="notice"><%= notice %>, </p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
+</body>
