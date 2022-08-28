@@ -1,14 +1,60 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Lokals</h1>
+<%#= render @lokal %>
 
-<div id="lokals">
+<p id="notice"><%= notice %></p>
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>Lokals</h1>
+    </div>
+  </section>
   <% @lokals.each do |lokal| %>
-    <%= render lokal %>
-    <p>
-      <%= link_to "Show this lokal", lokal %>
-    </p>
+    <div class="album py-2 bg-light">
+      <div class="container">
+        <div class="col-md-5">
+          <div class="card mb-2 box-shadow">
+            <table>
+              <thead>
+              <tr>
+                <th>Ulica</th>
+                <th>Cena</th>
+                <th colspan="6"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><%= lokal.ulica %></td>
+                <td><%= lokal.cena %></td>
+                <td>
+                  <div class="btn  btn-outline-info">
+                    <%= link_to 'Show', lokal %>
+                  </div>
+                </td>
+                <td>
+                  <% if current_user.admin? %>
+                    <div class="btn  btn-outline-info">
+                      <div>
+                        <%= link_to "Edit this lokal", edit_lokal_path(lokal) %> |
+                        <%= button_to "Destroy this lokal", lokal, method: :delete %>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   <% end %>
-</div>
+  <% if current_user.admin? %>
+    <div class="btn  btn-outline-info">
+      <%= link_to 'New Lokal', new_lokal_path %>
+    </div>
+  <% end %>
+</main>
 
-<%= link_to "New lokal", new_lokal_path %>
+
