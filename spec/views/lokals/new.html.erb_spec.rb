@@ -1,21 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "lokals/new", type: :view do
+RSpec.describe 'lokals/new', type: :view do
   before(:each) do
     assign(:lokal, Lokal.new(
-      ulica: "MyString",
-      cena: 1
-    ))
+                     ulica: 'MyString',
+                     cena: 1
+                   ))
   end
 
-  it "renders new lokal form" do
+  it 'renders new lokal form' do
     render
 
-    assert_select "form[action=?][method=?]", lokals_path, "post" do
+    assert_select 'form[action=?][method=?]', lokals_path, 'post' do
+      assert_select 'input[name=?]', 'lokal[ulica]'
 
-      assert_select "input[name=?]", "lokal[ulica]"
-
-      assert_select "input[name=?]", "lokal[cena]"
+      assert_select 'input[name=?]', 'lokal[cena]'
     end
   end
 end
