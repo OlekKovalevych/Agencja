@@ -1,0 +1,2 @@
+class Lokal < ApplicationRecord
+end

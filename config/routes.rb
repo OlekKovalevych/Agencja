@@ -2,11 +2,12 @@
 
 Rails.application.routes.draw do
   devise_for :users
-  root to: "public#404.html"
 
-  resources :users, as: 'users'
+  resources :users
+  resources :lokals
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "lokals#index"
 end

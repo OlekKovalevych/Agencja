@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Lokals</h1>
+
+<div id="lokals">
+  <% @lokals.each do |lokal| %>
+    <%= render lokal %>
+    <p>
+      <%= link_to "Show this lokal", lokal %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New lokal", new_lokal_path %>
